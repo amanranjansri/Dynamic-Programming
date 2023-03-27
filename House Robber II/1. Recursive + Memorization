@@ -1,0 +1,58 @@
+#include <bits/stdc++.h> 
+long long int solve(vector<int long long >& nums, int n, vector<long long int>& dp)
+{   
+    // base case
+    if(n < 0)
+    {
+        return 0;
+    }
+    if(n == 0)
+    {
+        return nums[0];
+    }
+
+    //step 3
+    if(dp[n] != -1)
+    {
+        return dp[n];
+    }
+    //recursive call
+
+    //step -2
+    long long int incl = nums[n] + solve(nums, n-2,dp);
+    long long int excl = 0 + solve(nums, n-1,dp);
+
+    dp[n] =  max(incl, excl);
+    return dp[n];
+
+}
+
+long long int houseRobber(vector<int>& valueInHouse)
+{
+     int n = valueInHouse.size();
+
+    if(n == 1)
+    
+        return valueInHouse[0];
+    
+
+    vector< long long int> first, second;
+    
+    //step -1
+    vector<long long int> dp1(n,-1), dp2(n,-1);
+
+    for(int i = 0; i < n; i++)
+    {  
+        if(i != n-1)
+        {
+            first.push_back(valueInHouse[i]);
+        }
+        
+        if(i != 0)
+        {
+            second.push_back(valueInHouse[i]);
+        }
+    }
+    
+    return max(solve(first, n-2, dp1), solve(second,n-2,dp2));
+}
