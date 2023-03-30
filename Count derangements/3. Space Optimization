@@ -1,0 +1,20 @@
+#define MOD 1000000007
+#include <vector>
+long long int countDerangements(int n) {
+
+    //step -1
+    vector<int>dp(n+1,0);
+
+    //step -2
+    long long int prev2 = 0;
+    long long int prev1 = 1;
+
+    //step -3
+    for(int i = 3; i<=n; i++)
+    {   
+        long long int a = ((i-1)%MOD*(prev1 + prev2)%MOD)%MOD;
+        prev2 = prev1;
+        prev1 = a;
+    }
+    return prev1;
+}
