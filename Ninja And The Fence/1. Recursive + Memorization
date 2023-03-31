@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+#define MOD 1000000007
+
+int add(int a, int b)
+{
+    return(a%MOD + b%MOD)%MOD;   
+}
+
+int mul(int a, int b)
+{
+    return(a%MOD * 1LL * b%MOD)%MOD; //range me lane ke leyea multiply keya hu "1LL" se.
+}
+
+int solve(int n, int k, vector<int> &dp)
+{
+    //base case
+    if(n == 1)
+    {
+        return k;
+    }
+    if(n == 2)
+    {
+        return add(k, mul(k,k-1));
+        // return k*k;
+    }
+
+    //step -3
+    if(dp[n] != -1)
+    {
+        return dp[n];
+    }
+
+    //recursive call
+    //step -2
+    dp[n] = add(mul(solve(n-2,k,dp),k-1) , mul(solve(n-1,k,dp),k-1));
+    return dp[n];
+}
+
+int numberOfWays(int n, int k) {
+    
+    //step -1
+    vector<int> dp(n+1,-1);
+
+    return solve(n,k,dp);
+}
+ 
