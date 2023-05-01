@@ -1,0 +1,39 @@
+#include <bits/stdc++.h> 
+
+int solve(vector<int> &arr, int tar, vector<int>&dp, int n)
+{
+    //base case
+    if(tar < 0)
+    {
+        return 0;
+    }
+    if(tar == 0)
+    {
+        return 1;
+    }
+    
+    //step -3
+    if(dp[tar] != -1)
+    {
+        return dp[tar];
+    }
+    
+
+    //recursive call
+    int ans = 0;
+    for(int i = 0; i<n; i++)
+    {
+        ans += solve(arr, tar-arr[i], dp, n);
+    }
+    dp[tar] = ans;
+    return dp[tar];
+}
+int findWays(vector<int> &num, int tar)
+{
+    int n = num.size();
+    
+    //step -1
+    
+    vector<int>dp(tar+1,-1);
+    return solve(num, tar, dp, n);
+}
